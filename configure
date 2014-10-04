@@ -194,6 +194,7 @@ Individual component options:
 External library support:
   --enable-avisynth        enable reading of AviSynth script files [no]
   --disable-bzlib          disable bzlib [autodetect]
+  --enable-libexpat        enable libexpat [autodetect]
   --enable-fontconfig      enable fontconfig
   --enable-frei0r          enable frei0r video filtering
   --enable-gnutls          enable gnutls [no]
@@ -1339,6 +1340,7 @@ EXTERNAL_LIBRARY_LIST="
     libcdio
     libcelt
     libdc1394
+    libexpat
     libfaac
     libfdk_aac
     libflite
@@ -2397,6 +2399,7 @@ dxa_demuxer_select="riffdec"
 eac3_demuxer_select="ac3_parser"
 f4v_muxer_select="mov_muxer"
 flac_demuxer_select="flac_parser"
+hds_demuxer_select="libexpat"
 hds_muxer_select="flv_muxer"
 hls_muxer_select="mpegts_muxer"
 image2_alias_pix_demuxer_select="image2_demuxer"
@@ -4785,6 +4788,7 @@ if enabled pthreads; then
   check_func pthread_cancel
 fi
 
+disabled libexpat || check_lib expat.h XML_ExpatVersion -lexpat || disable libexpat
 disabled  zlib || check_lib   zlib.h      zlibVersion -lz   || disable  zlib
 disabled bzlib || check_lib2 bzlib.h BZ2_bzlibVersion -lbz2 || disable bzlib
 disabled  lzma || check_lib2  lzma.h lzma_version_number -llzma || disable lzma
